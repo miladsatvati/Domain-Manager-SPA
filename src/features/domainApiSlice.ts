@@ -12,7 +12,42 @@ export const domainApiSlice = createApi({
       query: () => "/domain",
       providesTags: ["Domain"],
     }),
+    postDomain: builder.mutation<DomainState, DomainState>({
+      query: (newDomain) => ({
+        url: "/domain",
+        method: "POST",
+        body: newDomain,
+      }),
+      invalidatesTags: ["Domain"],
+    }),
+    getEachDomain: builder.query<DomainState, string>({
+      query: (id) => `/domain/${id}`,
+    }),
+    updateDomain: builder.mutation<
+      DomainState,
+      { id: string; patch: Partial<DomainState> }
+    >({
+      query: ({ id, ...patch }) => ({
+        url: `/domain/${id}`,
+        method: "PUT",
+        body: patch,
+      }),
+      invalidatesTags: ["Domain"],
+    }),
+    deleteDomain: builder.mutation<void, string>({
+      query: (id) => ({
+        url: `/domain/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Domain"],
+    }),
   }),
 });
 
-export const { useGetDomainsQuery } = domainApiSlice;
+export const {
+  useGetDomainsQuery,
+  usePostDomainMutation,
+  useGetEachDomainQuery,
+  useUpdateDomainMutation,
+  useDeleteDomainMutation,
+} = domainApiSlice;
