@@ -1,6 +1,11 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { DomainState } from "../types/types";
 
+interface DomainSliceState {
+  domains: DomainState[];
+  searchTerm: string;
+}
+
 const initialState: {
   domains: DomainState[];
   searchTerm: string;
@@ -18,6 +23,11 @@ const domainSlice = createSlice({
     },
   },
 });
+
+export const selectFilteredDomains = (state: { domain: DomainSliceState }) => {
+  const { searchTerm } = state.domain;
+  return searchTerm;
+};
 
 export const domainReducer = domainSlice.reducer;
 export const { setSearchTerm } = domainSlice.actions;

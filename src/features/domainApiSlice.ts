@@ -27,7 +27,7 @@ export const domainApiSlice = createApi({
       DomainState,
       { id: string; patch: Partial<DomainState> }
     >({
-      query: ({ id, ...patch }) => ({
+      query: ({ id, patch }) => ({
         url: `/domain/${id}`,
         method: "PUT",
         body: patch,

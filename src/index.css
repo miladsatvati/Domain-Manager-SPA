@@ -1,1 +1,7 @@
 @import "tailwindcss";
+
+@layer utilities  {
+    .loading-error {
+        @apply w-full h-screen flex items-start mt-56 justify-center
+    }
+}
