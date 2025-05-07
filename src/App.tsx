@@ -1,6 +1,7 @@
 import { useState } from "react";
 import TopSection from "./components/TopSection";
 import DrawerComponent from "./components/DrawerComponent";
+import DomainTable from "./components/DomainTable";
 
 function App() {
   const [open, setOpen] = useState<boolean>(false);
@@ -15,7 +16,7 @@ function App() {
     <div>
       <DrawerComponent onClose={onClose} open={open} />
       <TopSection showDrawer={showDrawer} />
-      
+      <DomainTable />
     </div>
   );
 }
