@@ -12,6 +12,7 @@ function App() {
   const onClose = () => {
     setOpen(false);
   };
+  
   return (
     <div>
       <DrawerComponent onClose={onClose} open={open} />

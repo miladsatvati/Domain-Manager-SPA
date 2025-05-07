@@ -1,4 +1,4 @@
-import { Drawer, Button, Input, Col, Row } from "antd";
+import { Drawer, Button, Input, Col, Row, message } from "antd";
 import { useState } from "react";
 import { usePostDomainMutation } from "../features/domainApiSlice";
 
@@ -8,12 +8,25 @@ interface DrawerComponentProps {
 }
 
 const DrawerComponent = ({ onClose, open }: DrawerComponentProps) => {
+  const [messageApi, contextHolder] = message.useMessage();
   const [domain, setDomain] = useState<string>("");
   const [postDomain, { isLoading }] = usePostDomainMutation();
   const handleDomainChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDomain(e.target.value);
   };
-  const handleAddDomain = () => {
+  const success = () => {
+    messageApi.open({
+      type: "success",
+      content: "This is a success message",
+    });
+  };
+  const error = () => {
+    messageApi.open({
+      type: "error",
+      content: "This is an error message",
+    });
+  };
+  const handleAddDomain = async () => {
     const fullDomain = `http://${domain}.com`;
     const domainState = {
       id: new Date().toISOString(),
@@ -22,11 +35,20 @@ const DrawerComponent = ({ onClose, open }: DrawerComponentProps) => {
       status: "pending" as const,
       createdDate: new Date().toString(),
     };
-    postDomain(domainState);
-    setDomain("");
-    onClose();
+    try{
+      await postDomain(domainState).unwrap();
+      success();
+      setDomain("");
+      onClose();
+    }catch(err) {
+      error();
+      console.error("Failed to add domain:", err);
+      message.error("Failed to add domain");
+    }
   };
   return (
+    <>
+    {contextHolder}
     <Drawer
       title="Add domain"
       placement="right"
@@ -63,6 +85,7 @@ const DrawerComponent = ({ onClose, open }: DrawerComponentProps) => {
         </Col>
       </Row>
     </Drawer>
+    </>
   );
 };
 
