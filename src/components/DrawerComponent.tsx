@@ -14,9 +14,10 @@ const DrawerComponent = ({ onClose, open }: DrawerComponentProps) => {
     setDomain(e.target.value);
   };
   const handleAddDomain = () => {
+    const fullDomain = `http://${domain}.com`;
     const domainState = {
       id: new Date().toISOString(),
-      domain,
+      domain: fullDomain,
       isActive: false,
       status: "pending" as const,
       createdDate: new Date().toString(),
@@ -35,7 +36,8 @@ const DrawerComponent = ({ onClose, open }: DrawerComponentProps) => {
     >
       <Input
         style={{ width: "80%", padding: "1rem 1.5rem" }}
-        placeholder="EX:https://www.bridged.media"
+        addonBefore="http://"
+        addonAfter=".com"
         value={domain}
         onChange={handleDomainChange}
       />
