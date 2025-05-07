@@ -9,3 +9,9 @@ export interface DomainState {
 export interface ShowDrawerProp {
   showDrawer: () => void;
 }
+
+export interface ContextProp {
+  showDrawer: () => void;
+  onClose: () => void;
+  open: boolean;
+}

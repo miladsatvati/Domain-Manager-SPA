@@ -1,13 +1,11 @@
 import { Drawer, Button, Input, Col, Row, message } from "antd";
 import { useState } from "react";
 import { usePostDomainMutation } from "../features/domainApiSlice";
+import { useContextValue } from "../helpers/useContext";
 
-interface DrawerComponentProps {
-  onClose: () => void;
-  open: boolean;
-}
+const DrawerComponent = () => {
+  const { onClose, open } = useContextValue();
 
-const DrawerComponent = ({ onClose, open }: DrawerComponentProps) => {
   const [messageApi, contextHolder] = message.useMessage();
   const [domain, setDomain] = useState<string>("");
   const [postDomain, { isLoading }] = usePostDomainMutation();
