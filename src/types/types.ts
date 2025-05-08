@@ -3,9 +3,15 @@ export interface DomainState {
   domain: string;
   isActive: boolean;
   status: "rejected" | "verified" | "pending";
-  createdDate: string;
+  createdDate: number;
 }
 
 export interface ShowDrawerProp {
   showDrawer: () => void;
+}
+
+export interface ContextProp {
+  showDrawer: () => void;
+  onClose: () => void;
+  open: boolean;
 }
