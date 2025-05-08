@@ -19,8 +19,8 @@ function App() {
       <ContextProvider value={{ showDrawer, onClose, open }}>
         <DrawerComponent />
         <TopSection />
-        <DomainTable />
       </ContextProvider>
+        <DomainTable />
     </div>
   );
 }

@@ -8,7 +8,7 @@ import {
 import type { DomainState } from "../types/types";
 import { useSelector } from "react-redux";
 import { selectFilteredDomains } from "../features/domainSlice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getDomainTableColumns } from "./DomainTableComponent";
 
 const DomainTable = () => {
@@ -19,6 +19,11 @@ const DomainTable = () => {
   const [modal, contextHolder] = Modal.useModal();
   const [editingDomain, setEditingDomain] = useState<DomainState | null>(null);
   const [editForm] = Form.useForm();
+
+  useEffect(() => {
+    console.log(data);
+    
+  },[data])
 
   const filteredDomains = searchTerm
     ? data?.filter((domain) =>

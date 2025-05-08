@@ -25,20 +25,20 @@ const DrawerComponent = () => {
     });
   };
   const handleAddDomain = async () => {
-    const fullDomain = `http://${domain}.com`;
+    const fullDomain = `http://${domain}`;
     const domainState = {
       id: new Date().toISOString(),
       domain: fullDomain,
       isActive: false,
       status: "pending" as const,
-      createdDate: new Date().toString(),
+      createdDate: Math.floor(Date.now() / 1000),
     };
-    try{
+    try {
       await postDomain(domainState).unwrap();
       success();
       setDomain("");
       onClose();
-    }catch(err) {
+    } catch (err) {
       error();
       console.error("Failed to add domain:", err);
       message.error("Failed to add domain");
@@ -46,43 +46,42 @@ const DrawerComponent = () => {
   };
   return (
     <>
-    {contextHolder}
-    <Drawer
-      title="Add domain"
-      placement="right"
-      size="large"
-      onClose={onClose}
-      open={open}
-    >
-      <Input
-        style={{ width: "80%", padding: "1rem 1.5rem" }}
-        placeholder="EX:https://www.bridged.media"
-        onChange={handleDomainChange}
-        value={domain}
-        addonBefore="http://"
-        addonAfter=".com"
-      />
+      {contextHolder}
+      <Drawer
+        title="Add domain"
+        placement="right"
+        size="large"
+        onClose={onClose}
+        open={open}
+      >
+        <Input
+          style={{ width: "80%", padding: "1rem 1.5rem" }}
+          placeholder="EX:https://www.bridged.media"
+          onChange={handleDomainChange}
+          value={domain}
+          addonBefore="http://"
+        />
 
-      <Row gutter={12} align="bottom" justify="end" className="h-[93%]">
-        <Col xs={8} span={6}>
-          <Button className="w-full" style={{ padding: "1.5rem 0" }}>
-            Cancel
-          </Button>
-        </Col>
-        <Col xs={8} span={6}>
-          <Button
-            type="primary"
-            className="w-full"
-            style={{ padding: "1.5rem 0" }}
-            loading={isLoading}
-            onClick={handleAddDomain}
-            disabled={!domain}
-          >
-            Add
-          </Button>
-        </Col>
-      </Row>
-    </Drawer>
+        <Row gutter={12} align="bottom" justify="end" className="h-[93%]">
+          <Col xs={8} span={6}>
+            <Button className="w-full" style={{ padding: "1.5rem 0" }}>
+              Cancel
+            </Button>
+          </Col>
+          <Col xs={8} span={6}>
+            <Button
+              type="primary"
+              className="w-full"
+              style={{ padding: "1.5rem 0" }}
+              loading={isLoading}
+              onClick={handleAddDomain}
+              disabled={!domain}
+            >
+              Add
+            </Button>
+          </Col>
+        </Row>
+      </Drawer>
     </>
   );
 };

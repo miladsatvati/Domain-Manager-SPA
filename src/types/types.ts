@@ -3,7 +3,7 @@ export interface DomainState {
   domain: string;
   isActive: boolean;
   status: "rejected" | "verified" | "pending";
-  createdDate: string;
+  createdDate: number;
 }
 
 export interface ShowDrawerProp {

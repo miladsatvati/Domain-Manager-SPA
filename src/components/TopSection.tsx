@@ -13,9 +13,6 @@ const TopSection = () => {
 
         <Col xs={24} sm={12} md={14} lg={16}>
           <Row gutter={[16, 36]} justify="end">
-            {/* <Col xs={24} sm={12} lg={6}>
-              <DropDown />
-            </Col> */}
             <SearchInput />
           </Row>
         </Col>
